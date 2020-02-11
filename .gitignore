@@ -36,6 +36,7 @@ node_modules
 venv/
 .env
 env/
+.elasticbeanstalk/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
