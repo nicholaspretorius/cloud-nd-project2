@@ -9,7 +9,7 @@ describe("GET /", () => {
   });
 });
 
-describe("GET /filterimage", () => {
+describe("GET /filteredimage", () => {
 
   const image_url = "https://cdn.pixabay.com/photo/2020/02/04/22/29/owl-4819550_1280.jpg";
 
@@ -35,6 +35,7 @@ describe("GET /filterimage", () => {
     const res = await request(app).get("/filteredimage?image_url=blah");
     expect(res.status).toEqual(422);
     expect(res.body.error).toContain("Unprocessable entry. No such file:");
+    expect(res.body.code).toEqual("ENOENT");
   });
 
   it("should return a status of 200 if a valid image_url is provided", async () => {
