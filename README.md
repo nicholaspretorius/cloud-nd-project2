@@ -25,10 +25,10 @@ Successfully deployed instance:
 
 ### AWS Urls
 
-* Root: / 200 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/) 
-* Incorrect filter: /filteredimage?image_url 400 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url]
-* Unprocessable filter: /filteredimage?image_url=blah 422 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah)
-* Correct filter: /filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg)
+* Root: [/](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/) 200
+* Incorrect filter: [/filteredimage?image_url] 400
+* Unprocessable filter: [/filteredimage?image_url=blah](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah) 422
+* Correct filter: [/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg) 200
 
 
 
