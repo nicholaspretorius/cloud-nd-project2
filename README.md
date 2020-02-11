@@ -1,9 +1,13 @@
 # Udagram Image Filtering Microservice
 
-### Git: 
+### GitHub and Git: 
 
 * GitHub: [https://github.com/nicholaspretorius/cloud-nd-project2](https://github.com/nicholaspretorius/cloud-nd-project2)
-* `git clone https://github.com/nicholaspretorius/cloud-nd-project2.git`
+* Git: `git clone https://github.com/nicholaspretorius/cloud-nd-project2.git` to clone the project.
+* `git checkout dev` checkout the development branch.
+* `git checkout -b featureName` create and checkout a feature branch.
+
+*Please Note: Development must be done in the `dev` branch. The `master` branch is protected and requires a Pull Request (PR) to be submitted for code review and approval.*
 
 ### Development Notes: 
 
@@ -32,7 +36,7 @@ Successfully deployed instance:
 
 
 
-### Original README
+## Original README Instructions
 
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
