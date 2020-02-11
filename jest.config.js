@@ -12,5 +12,5 @@ module.exports = {
       tsConfigFile: "tsconfig.json"
     }
   },
-  testMatch: ["**/tests/*.+(ts|tsx|js)"]
+  testMatch: ["**/tests/**/*.+(ts|tsx|js)"]
 };
