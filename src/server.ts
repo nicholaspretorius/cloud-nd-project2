@@ -32,21 +32,25 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
     let filtered_image_location: string;
 
-    if (req.query.image_url) {
-      filtered_image_location = await filterImageFromURL(req.query.image_url);
-      // await res.sendFile(filtered_image_location);
-      res.sendFile(filtered_image_location, {}, (err) => {
-        if (err) {
-          next(err)
-        } else {
-          deleteLocalFiles([filtered_image_location]);
-        }
-      })
+    if (!req.query.image_url || req.query.image_url === "") {
+      return res.status(400).json({ "error": "Please provide the image_url query parameter with a valid image url" })
     } else {
-      return res.json({ "message": "Please provide the image_url query parameter" })
+      try {
+        filtered_image_location = await filterImageFromURL(req.query.image_url);
+        res.sendFile(filtered_image_location, {}, (err) => {
+          if (err) {
+            next(err)
+          } else {
+            deleteLocalFiles([filtered_image_location]);
+          }
+        })
+      } catch (ex) {
+        return res.status(422).json({
+          "error": `Unprocessable entry. No such file: '/${ex.path}'`,
+          "code": ex.code
+        });
+      }
     }
-
-
   });
   //! END @TODO1
 
