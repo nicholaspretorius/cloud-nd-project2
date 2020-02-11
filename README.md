@@ -1,20 +1,36 @@
 # Udagram Image Filtering Microservice
 
+### Git: 
+
+* GitHub: [https://github.com/nicholaspretorius/cloud-nd-project2](https://github.com/nicholaspretorius/cloud-nd-project2)
+* `git clone https://github.com/nicholaspretorius/cloud-nd-project2.git`
+
 ### Development Notes: 
 
 You can run the application as follows: 
 
+* `npm i` to install dependencies.
 * `npm run dev` for development purposes.
+* `npm test` to run tests in watch mode with coverage.
 * `npm run build` to build the project for deployment.
 * `eb deploy` to deploy the project to existing Elastic Beanstalk instance.
 * `cd www && npm start` for running built project (i.e. how EB will run the app).
-* `npm test` to run tests in watch mode with coverage.
 
 ### Elastic Beanstalk
 
 Successfully deployed instance: 
 
 ![Elastic Beanstalk Running Instance](/deployment_screenshots/elastic-beanstalk-screenshot.png)
+
+
+### AWS Urls
+
+* Root: / 200 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/) 
+* Incorrect filter: /filteredimage?image_url 400 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url]
+* Unprocessable filter: /filteredimage?image_url=blah 422 [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah)
+* Correct filter: /filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg [http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg)
+
+
 
 ### Original README
 
