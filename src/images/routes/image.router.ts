@@ -29,4 +29,5 @@ router.get("/filtered", async (req: Request, res: Response, next: NextFunction) 
     }
 });
 
-export default router;
+const ImageRouter: Router = router;
+export default ImageRouter;
