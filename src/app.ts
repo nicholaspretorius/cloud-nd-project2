@@ -2,7 +2,8 @@ import { resolve } from "path";
 import express from 'express';
 import bodyParser from 'body-parser';
 import { config } from "dotenv";
-config({ path: resolve(__dirname, "./../.env") });
+const ENV = process.env.NODE_ENV === "development" ? ".env" : `.env.${process.env.NODE_ENV}`
+config({ path: resolve(__dirname, `./../${ENV}`) });
 
 import db from "./db";
 
