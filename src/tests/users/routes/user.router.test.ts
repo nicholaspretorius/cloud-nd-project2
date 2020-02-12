@@ -28,7 +28,7 @@ describe("POST /users", () => {
     it("should return a status of 200", async () => {
 
         const data = {
-            "email": "test@test1.com",
+            "email": "test@test.com",
             "password": "password"
         };
 
