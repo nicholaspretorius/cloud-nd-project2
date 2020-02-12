@@ -9,6 +9,11 @@
 
 *Please Note: Development must be done in the `dev` branch. The `master` branch is protected and requires a Pull Request (PR) to be submitted for code review and approval.*
 
+### Database
+
+The app uses a PostgreSQL database. 
+
+
 ### Development Notes: 
 
 You can run the application as follows: 
