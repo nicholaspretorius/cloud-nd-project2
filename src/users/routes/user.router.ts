@@ -13,7 +13,7 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
     const data = req.body;
-    if (data) {
+    if (data.email && data.password) {
         const user = await User.create(data);
 
         res.json({
@@ -22,7 +22,7 @@ router.post("/", async (req: Request, res: Response) => {
             updatedAt: user.updatedAt
         });
     } else {
-        res.json({
+        res.status(400).json({
             "error": "Please provide valid user details"
         })
     }
