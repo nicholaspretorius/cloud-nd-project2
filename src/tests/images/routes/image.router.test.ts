@@ -35,9 +35,3 @@ describe("GET /images/filtered", () => {
         expect(res.status).toEqual(200);
     });
 });
-
-describe("Sanity", () => {
-    it("should expect true to be truthy", () => {
-        expect(true).toBe(true);
-    });
-});
