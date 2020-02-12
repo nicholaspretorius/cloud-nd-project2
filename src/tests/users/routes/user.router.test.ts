@@ -25,7 +25,7 @@ describe("POST /users", () => {
         });
     });
 
-    it("should return a status of 200", async () => {
+    it("should return a status of 200 for valid user", async () => {
 
         const data = {
             "email": "test@test.com",
@@ -35,5 +35,15 @@ describe("POST /users", () => {
         const res = await (await request(app).post("/users").send(data));
         expect(res.status).toEqual(200);
         expect(res.body.email).toEqual(data.email);
+    });
+
+    it("should return a status of 400 for an invalid user", async () => {
+
+        const data = {
+            "password": "password"
+        };
+
+        const res = await (await request(app).post("/users").send(data));
+        expect(res.status).toEqual(400);
     });
 });
