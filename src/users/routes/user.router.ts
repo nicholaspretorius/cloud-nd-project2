@@ -7,7 +7,7 @@ const router: Router = Router();
 router.get("/", async (req: Request, res: Response) => {
     // TODO: Add page and limitTo query params
     const { page, limitTo } = req.query;
-    const users = await User.findAll();
+    const users = await User.findAll({});
     res.json({ users });
 });
 
@@ -15,6 +15,7 @@ router.post("/", async (req: Request, res: Response) => {
     const data = req.body;
     if (data) {
         const user = await User.create(data);
+
         res.json({
             email: user.email,
             createdAt: user.createdAt,
