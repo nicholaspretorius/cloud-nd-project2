@@ -22,7 +22,7 @@ You can run the application as follows:
 * `npm run dev` for development purposes.
 * `npm test` to run tests in watch mode with coverage.
 * `npm run build` to build the project for deployment.
-* `eb deploy` to deploy the project to existing Elastic Beanstalk instance.
+* `eb deploy --profile aws_educate` to deploy the project to existing Elastic Beanstalk instance.
 * `cd www && npm start` for running built project (i.e. how EB will run the app).
 
 ### Elastic Beanstalk
