@@ -8,7 +8,7 @@
     "test": "NODE_ENV=test jest --watchAll --coverage --runInBand --detectOpenHandles",
     "clean": "rm -rf www/ || true",
     "build": "npm run clean && tsc && cp package.json www/package.json && mkdir www/tmp/ && cd www && zip -r Archive.zip . && cd ..",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts"
+    "dev": "NODE_ENV=development ts-node-dev --respawn --transpileOnly ./src/server.ts"
   },
   "repository": {
     "type": "git",
