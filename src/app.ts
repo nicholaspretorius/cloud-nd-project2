@@ -10,6 +10,7 @@ import db from "./db";
 import MODELS from "./models";
 import ImageRouter from "./images/routes/image.router";
 import UserRouter from "./users/routes/user.router";
+import AuthRouter from "./auth/auth.router";
 
 // Initialise the Express application
 const app = express();
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 
 app.use("/images", ImageRouter);
 app.use("/users", UserRouter);
+app.use("/auth", AuthRouter);
 
 // Displays a simple message to the user
 app.get("/", async (req, res) => {
