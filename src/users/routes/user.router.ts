@@ -7,7 +7,7 @@ const router: Router = Router();
 router.get("/", async (req: Request, res: Response) => {
     // TODO: Add page and limitTo query params
     const { page, limitTo } = req.query;
-    const users = await User.findAll({});
+    const users = await User.findAll({ attributes: ["email", "id"] });
     res.json({ users });
 });
 
@@ -17,9 +17,8 @@ router.post("/", async (req: Request, res: Response) => {
         const user = await User.create(data);
 
         res.json({
-            email: user.email,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt
+            id: user.id,
+            email: user.email
         });
     } else {
         res.status(400).json({
@@ -30,7 +29,7 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, { attributes: ["id", "email"] });
     res.json(user);
 });
 
