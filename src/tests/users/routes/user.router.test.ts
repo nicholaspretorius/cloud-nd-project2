@@ -10,8 +10,20 @@ describe("GET /users", () => {
 });
 
 describe("GET /users/:id", () => {
+
+    let uuid: string;
+
+    beforeEach(async () => {
+        const data = {
+            "email": "test@test.com",
+            "password": "123456"
+        }
+        const user = await User.create(data);
+        uuid = user.id;
+    });
+
     it("should return a status of 200", async () => {
-        const res = await request(app).get("/users/1");
+        const res = await request(app).get(`/users/${uuid}`);
         expect(res.status).toEqual(200);
     });
 });
