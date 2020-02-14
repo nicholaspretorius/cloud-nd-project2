@@ -19,12 +19,12 @@ router.post("/", async (req: Request, res: Response) => {
     if (data.email && data.password) {
         const user = await User.create(data);
 
-        res.json({
+        return res.status(201).json({
             id: user.id,
             email: user.email
         });
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             "error": "Please provide valid user details"
         })
     }
