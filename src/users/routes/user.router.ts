@@ -1,8 +1,11 @@
 import { Router, Request, Response } from "express";
+import Joi from "@hapi/joi";
 
 import { User } from "./../models/User";
 
 const router: Router = Router();
+
+const schema = Joi.object({ id: Joi.string().guid() });
 
 router.get("/", async (req: Request, res: Response) => {
     // TODO: Add page and limitTo query params
@@ -30,13 +33,15 @@ router.post("/", async (req: Request, res: Response) => {
 router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    if (!id) {
+    const { error, value } = schema.validate({ id: id });
+
+    if (error) {
         return res.status(400).json({
             message: "Please provide a valid id"
         });
     }
 
-    const user = await User.findByPk(id, { attributes: ["id", "email"] });
+    const user = await User.findByPk(value.id, { attributes: ["id", "email"] });
 
     if (!user) {
         return res.status(404).json({
@@ -50,20 +55,24 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.delete("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    if (!id) {
+    const { error, value } = schema.validate({ id: id });
+
+    if (error) {
         return res.status(400).json({
             message: "Please provide a valid id"
         });
     }
 
-    const user: User = await User.findByPk(id, { attributes: ["id", "email"] });
-    const userToDelete = user.short();
+    const user: User = await User.findByPk(value.id, { attributes: ["id", "email"] });
 
     if (!user) {
         return res.status(404).json({
             message: "User not found"
         });
     }
+
+
+    const userToDelete = user.short();
 
     user.destroy();
 
@@ -72,8 +81,6 @@ router.delete("/:id", async (req: Request, res: Response) => {
         message: "User deleted",
         user: userToDelete
     });
-
-
 });
 
 const UserRouter: Router = router;
