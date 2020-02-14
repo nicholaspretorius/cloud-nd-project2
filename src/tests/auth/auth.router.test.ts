@@ -1,6 +1,7 @@
 import request from "supertest";
 import app from "./../../app"
 import { User } from "./../../users/models/User";
+import { generateJWT, requireAuth } from "./../../auth/auth.router";
 
 afterEach(async () => {
     User.destroy({
@@ -47,19 +48,19 @@ describe("POST /register", () => {
 
     it("should return a status of 422 when an existing user is recreated", async () => {
 
-        const data = {
-            "email": "test@test.com",
+        const userData = {
+            "email": "test2@test.com",
             "password": "123456"
         }
-        const user = await User.create(data);
-        const uuid = user.id;
+        const res1 = await request(app).post("/auth/register").send(userData);
+        expect(res1.status).toEqual(201);
 
-        const duplicateUser = {
-            "email": "test@test.com",
+        const data = {
+            "email": "test2@test.com",
             "password": "password"
-        };
+        }
 
-        const res = await request(app).post("/auth/register").send(duplicateUser);
+        const res = await request(app).post("/auth/register").send(data);
         expect(res.status).toEqual(422);
         expect(res.body.auth).toBe(false);
         expect(res.body.message).toEqual("User already exists");
@@ -167,3 +168,38 @@ describe("POST /login", () => {
         expect(res2.body.user.email).toEqual(data.email);
     });
 });
+
+// declare global {
+//     namespace Express {
+//         interface Request {
+//             headers: Object
+//         }
+//     }
+// }
+
+// describe("requiresAuth middleware", () => {
+//     it("should verify that a valid JWT is present", async () => {
+//         const data = {
+//             email: "test@test.com",
+//             password: "123456"
+//         };
+
+//         const user = new User(data);
+//         const savedUser = await user.save();
+
+//         const token = generateJWT(savedUser);
+
+//         const req: Request = {
+//             headers: {
+//                 authorization: `Bearer ${jest.fn().mockReturnValue(token)}`
+//             }
+//         }
+//         const res = {};
+//         const next = jest.fn();
+
+//         requireAuth(req, res, next);
+
+//         expect(req.user).toMatchObject(user.toJson());
+
+//     });
+// });
