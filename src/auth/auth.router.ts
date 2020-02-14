@@ -22,14 +22,62 @@ async function comparePasswords(password: string, hash: string): Promise<boolean
 }
 
 function generateJWT(user: User): string {
-    return jwt.sign(user, config.jwt.secret);
+    const userJson = user.toJson();
+    return jwt.sign(userJson, config.jwt.secret);
 }
 
-router.post("/login", async (req: Request, res: Response) => {
-    const email = req.body.email;
-    const password = req.body.password;
+router.post("/register", async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-    console.log(email, password);
+    if (!email || !EmailValidator.validate(email)) {
+        return res.status(400).json({
+            auth: false,
+            message: "Email is not valid"
+        })
+    }
+
+    if (!password) {
+        return res.status(400).json({
+            auth: false,
+            message: "Password is required"
+        });
+    }
+
+    const user = await User.findOne({ where: { email: email } });
+
+    if (user) {
+        return res.status(422).json({
+            auth: false,
+            message: "User already exists"
+        });
+    }
+
+    const password_hash = await generatePasswordHash(password);
+
+    const newUser = await new User({
+        email,
+        password: password_hash
+    });
+
+    let savedUser;
+
+    try {
+        savedUser = await newUser.save();
+    } catch (ex) {
+        throw ex;
+    }
+
+    const jwt = generateJWT(savedUser);
+
+    return res.status(201).json({
+        token: jwt,
+        user: savedUser.short()
+    });
+
+});
+
+router.post("/login", async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
     if (!email || !EmailValidator.validate(email)) {
         return res.status(400).json({
