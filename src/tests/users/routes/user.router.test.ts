@@ -69,7 +69,7 @@ describe("GET /users/:id", () => {
 
 describe("POST /users", () => {
 
-    it("should return a status of 200 for valid user", async () => {
+    it("should return a status of 201 for valid user", async () => {
 
         const data = {
             "email": "test@test.com",
@@ -77,7 +77,7 @@ describe("POST /users", () => {
         };
 
         const res = await (await request(app).post("/users").send(data));
-        expect(res.status).toEqual(200);
+        expect(res.status).toEqual(201);
         expect(res.body.email).toEqual(data.email);
     });
 
