@@ -29,4 +29,11 @@ export class User extends Model<User> {
             email: this.email
         }
     }
+
+    toJson() {
+        return {
+            id: this.id,
+            email: this.email
+        }
+    }
 }
