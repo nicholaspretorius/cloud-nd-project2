@@ -1,4 +1,5 @@
 import request from "supertest";
+import uuidv4 from "uuid/v4";
 import app from "./../../../app";
 import { User } from "./../../../users/models/User";
 
@@ -49,6 +50,17 @@ describe("GET /users/:id", () => {
         uuid = user.id;
     });
 
+    it("should return a status of 400 if id is not a valid uuid", async () => {
+        const res = await request(app).get(`/users/1`);
+        expect(res.status).toEqual(400);
+    });
+
+    it("should return a status of 404 if no user is found", async () => {
+        const id = uuidv4();
+        const res = await request(app).get(`/users/${id}`);
+        expect(res.status).toEqual(404);
+    });
+
     it("should return a status of 200", async () => {
         const res = await request(app).get(`/users/${uuid}`);
         expect(res.status).toEqual(200);
@@ -77,5 +89,34 @@ describe("POST /users", () => {
 
         const res = await (await request(app).post("/users").send(data));
         expect(res.status).toEqual(400);
+    });
+});
+
+describe("DELETE /users/:id", () => {
+    let uuid: string;
+
+    beforeEach(async () => {
+        const data = {
+            "email": "test@test.com",
+            "password": "123456"
+        }
+        const user = await User.create(data);
+        uuid = user.id;
+    });
+
+    it("should return a status of 400 if id is not a valid uuid", async () => {
+        const res = await request(app).delete(`/users/1`);
+        expect(res.status).toEqual(400);
+    });
+
+    it("should return a status of 404 if no user is found", async () => {
+        const id = uuidv4();
+        const res = await request(app).delete(`/users/${id}`);
+        expect(res.status).toEqual(404);
+    });
+
+    it("should return a status of 200", async () => {
+        const res = await request(app).delete(`/users/${uuid}`);
+        expect(res.status).toEqual(200);
     });
 });

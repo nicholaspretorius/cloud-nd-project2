@@ -7,6 +7,9 @@ module.exports = {
     port: process.env.DB_PORT,
     protocol: process.env.DB_PROTOCOL,
     dialect: "postgres"
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET
   }
 };
 
