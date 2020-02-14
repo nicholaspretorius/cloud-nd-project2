@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 
 import { User } from "./../users/models/User";
 
@@ -21,9 +21,43 @@ async function comparePasswords(password: string, hash: string): Promise<boolean
     return await bcrypt.compare(password, hash);
 }
 
-function generateJWT(user: User): string {
+export function generateJWT(user: User): string {
     const userJson = user.toJson();
     return jwt.sign(userJson, config.jwt.secret);
+}
+
+declare global {
+    namespace Express {
+        interface Request {
+            user: Object
+        }
+    }
+}
+
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+
+    if (!req.headers || !req.headers.authorization) {
+        return res.status(401).json({
+            message: "No authorization headers"
+        });
+    }
+
+    // Authorization: Bearer token
+    const authHeader = req.headers.authorization.split(" ");
+
+    if (authHeader.length != 2) {
+        return res.status(401).json({ message: "Invalid token" });
+    }
+
+    const token = authHeader[1];
+
+    try {
+        const decoded = jwt.verify(token, config.jwt.secret);
+        req.user = decoded;
+        return next();
+    } catch (ex) {
+        return res.status(500).json({ message: "Invalid token" });
+    }
 }
 
 router.post("/register", async (req: Request, res: Response) => {
