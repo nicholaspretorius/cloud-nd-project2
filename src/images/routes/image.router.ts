@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { filterImageFromURL, deleteLocalFiles } from './../../util/util';
+import { requireAuth } from "./../../auth/auth.router";
 
 const router: Router = Router();
 
@@ -27,6 +28,10 @@ router.get("/filtered", async (req: Request, res: Response, next: NextFunction) 
             });
         }
     }
+});
+
+router.get("/upload", requireAuth, async (req: Request, res: Response) => {
+    res.status(200).json({ message: "Authorized" });
 });
 
 const ImageRouter: Router = router;
