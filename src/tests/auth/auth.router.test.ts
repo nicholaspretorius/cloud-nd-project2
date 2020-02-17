@@ -169,6 +169,49 @@ describe("POST /login", () => {
     });
 });
 
+
+describe("GET /auth/verify", () => {
+
+    afterEach(async () => {
+        User.destroy({
+            where: {},
+            truncate: true
+        });
+    });
+
+    it("should return a status of 401 if no authorization header is provided", async () => {
+        const res = await request(app).get("/images/upload");
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("No authorization headers");
+    });
+
+    it("should return a status of 401 if authorization header is invalid", async () => {
+        const res = await request(app).get("/images/upload").set('Authorization', 'invalid');
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 401 if token is invalid", async () => {
+        const res = await request(app).get("/images/upload").set('Authorization', 'Bearer invalid');
+        expect(res.status).toEqual(500);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 200 if token is valid", async () => {
+        const userData = {
+            "email": "test@test.com",
+            "password": "123456"
+        }
+        const res1 = await request(app).post("/auth/register").send(userData);
+        expect(res1.status).toEqual(201);
+        const token = res1.body.token;
+
+        const res = await request(app).get("/auth/verify").set('Authorization', `Bearer ${token}`);
+        expect(res.status).toEqual(200);
+        expect(res.body.message).toBe("Authorized");
+    });
+});
+
 // declare global {
 //     namespace Express {
 //         interface Request {

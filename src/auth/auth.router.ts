@@ -154,5 +154,10 @@ router.post("/login", async (req: Request, res: Response) => {
     });
 });
 
+// Sanity check to verify whether user is authorized
+router.get("/verify", requireAuth, async (req: Request, res: Response) => {
+    res.status(200).json({ authorized: true, message: "Authorized" });
+});
+
 const AuthRouter: Router = router;
 export default AuthRouter;

@@ -1,5 +1,7 @@
 import request from "supertest";
+import { resolve } from "path";
 import app from "./../../../app";
+import { User } from "./../../../users/models/User";
 
 describe("GET /images/filtered", () => {
 
@@ -33,5 +35,107 @@ describe("GET /images/filtered", () => {
     it("should return a status of 200 if a valid image_url is provided", async () => {
         const res = await request(app).get(`/images/filtered?image_url=${image_url}`);
         expect(res.status).toEqual(200);
+    });
+});
+
+describe("GET /images", () => {
+
+    afterEach(async () => {
+        User.destroy({
+            where: {},
+            truncate: true
+        });
+    });
+
+    it("should return a status of 401 if no authorization header is provided", async () => {
+        const res = await request(app).get("/images");
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("No authorization headers");
+    });
+
+    it("should return a status of 401 if authorization header is invalid", async () => {
+        const res = await request(app).get("/images").set('Authorization', 'invalid');
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 401 if token is invalid", async () => {
+        const res = await request(app).get("/images").set('Authorization', 'Bearer invalid');
+        expect(res.status).toEqual(500);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 200 if token is valid", async () => {
+        const userData = {
+            "email": "test@test.com",
+            "password": "123456"
+        }
+        const res1 = await request(app).post("/auth/register").send(userData);
+        expect(res1.status).toEqual(201);
+        const token = res1.body.token;
+
+        const res = await request(app).get("/images").set('Authorization', `Bearer ${token}`);
+        expect(res.status).toEqual(200);
+        expect(res.body.images);
+    });
+});
+
+describe("GET /images/:id", () => {
+
+    afterEach(async () => {
+        User.destroy({
+            where: {},
+            truncate: true
+        });
+    });
+
+    const id = 1;
+
+    it("should return a status of 401 if no authorization header is provided", async () => {
+        const res = await request(app).get(`/images/${id}`);
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("No authorization headers");
+    });
+
+    it("should return a status of 401 if authorization header is invalid", async () => {
+        const res = await request(app).get(`/images/${id}`).set('Authorization', 'invalid');
+        expect(res.status).toEqual(401);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 401 if token is invalid", async () => {
+        const res = await request(app).get(`/images/${id}`).set('Authorization', 'Bearer invalid');
+        expect(res.status).toEqual(500);
+        expect(res.body.message).toBe("Invalid token");
+    });
+
+    it("should return a status of 200 if token is valid", async () => {
+        const userData = {
+            "email": "test@test.com",
+            "password": "123456"
+        }
+        const res1 = await request(app).post("/auth/register").send(userData);
+        expect(res1.status).toEqual(201);
+        const token = res1.body.token;
+
+        const fileName = "kraiss.jpg";
+        const filePath = resolve(__dirname, `./../../files/${fileName}`);
+
+        const res2 = await request(app).get(`/images/upload-url/${fileName}`).set('Authorization', `Bearer ${token}`);
+        expect(res2.status).toEqual(201);
+        expect(res2.body.url);
+        // console.log("Put URL: ", res2.body.url);
+
+        const put_url = res2.body.url;
+        // const awsQueryParams = put_url.split("?")[1];
+
+        await request('').put(put_url).attach("file", filePath);
+
+        const res3 = await request(app).get(`/images/signed-url/${fileName}`).set('Authorization', `Bearer ${token}`);
+        expect(res3.status).toEqual(201);
+        expect(res3.body.url);
+
+        const res4 = await request('').get(res3.body.url);
+        expect(res4.status).toEqual(200);
     });
 });
