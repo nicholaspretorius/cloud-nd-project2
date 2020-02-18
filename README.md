@@ -13,6 +13,30 @@
 
 The app uses a PostgreSQL database. 
 
+### Environment Variables
+
+This project makes use of environment variables that are used locally via the `dotenv` NPM module. These are exlcuded from the repo. The files are named: 
+
+* .env
+* .env.test
+* .env.production
+
+The files should contain values as follows: 
+
+```
+DB_HOST=
+DB_USER=
+DB_PASS=
+DB_NAME=
+DB_PORT=
+DB_PROTOCOL=postgres
+JWT_SECRET=
+S3_BUCKET=
+AWS_REGION=
+AWS_PROFILE=
+```
+
+Note that on the Elastic Beanstalk environment, AWS_PROFILE must be set to "DEPLOYED". 
 
 ### Development Notes: 
 
