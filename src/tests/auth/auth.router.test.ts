@@ -1,7 +1,6 @@
 import request from "supertest";
 import app from "./../../app"
 import { User } from "./../../users/models/User";
-import { generateJWT, requireAuth } from "./../../auth/auth.router";
 
 afterEach(async () => {
     User.destroy({
@@ -180,19 +179,19 @@ describe("GET /auth/verify", () => {
     });
 
     it("should return a status of 401 if no authorization header is provided", async () => {
-        const res = await request(app).get("/images/upload");
+        const res = await request(app).get("/auth/verify");
         expect(res.status).toEqual(401);
         expect(res.body.message).toBe("No authorization headers");
     });
 
     it("should return a status of 401 if authorization header is invalid", async () => {
-        const res = await request(app).get("/images/upload").set('Authorization', 'invalid');
+        const res = await request(app).get("/auth/verify").set('Authorization', 'invalid');
         expect(res.status).toEqual(401);
         expect(res.body.message).toBe("Invalid token");
     });
 
     it("should return a status of 401 if token is invalid", async () => {
-        const res = await request(app).get("/images/upload").set('Authorization', 'Bearer invalid');
+        const res = await request(app).get("/auth/verify").set('Authorization', 'Bearer invalid');
         expect(res.status).toEqual(500);
         expect(res.body.message).toBe("Invalid token");
     });
@@ -211,38 +210,3 @@ describe("GET /auth/verify", () => {
         expect(res.body.message).toBe("Authorized");
     });
 });
-
-// declare global {
-//     namespace Express {
-//         interface Request {
-//             headers: Object
-//         }
-//     }
-// }
-
-// describe("requiresAuth middleware", () => {
-//     it("should verify that a valid JWT is present", async () => {
-//         const data = {
-//             email: "test@test.com",
-//             password: "123456"
-//         };
-
-//         const user = new User(data);
-//         const savedUser = await user.save();
-
-//         const token = generateJWT(savedUser);
-
-//         const req: Request = {
-//             headers: {
-//                 authorization: `Bearer ${jest.fn().mockReturnValue(token)}`
-//             }
-//         }
-//         const res = {};
-//         const next = jest.fn();
-
-//         requireAuth(req, res, next);
-
-//         expect(req.user).toMatchObject(user.toJson());
-
-//     });
-// });

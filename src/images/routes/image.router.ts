@@ -1,14 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import Joi from "@hapi/joi";
 import { filterImageFromURL, deleteLocalFiles } from './../../util/util';
 import * as AWS from "../../aws";
 import { requireAuth } from "./../../auth/auth.router";
-import { Image } from "./../models/Image";
 
 const router: Router = Router();
-
-// Joi schema for id validation
-const schema = Joi.object({ id: Joi.number() });
 
 // Filters the image
 router.get("/filtered", async (req: Request, res: Response, next: NextFunction) => {
@@ -34,48 +29,6 @@ router.get("/filtered", async (req: Request, res: Response, next: NextFunction) 
             });
         }
     }
-});
-
-// GET all the images
-router.get("/", requireAuth, async (req: Request, res: Response) => {
-    const images = await Image.findAndCountAll({ order: [['id', 'DESC']] });
-    images.rows.map(image => {
-        if (image.url) {
-            const fileName = image.url.split("://")[1].split("/")[1];
-            image.url = AWS.getGetSignedUrl(fileName);
-        }
-    });
-    res.json({ images });
-});
-
-// GET /images/:id
-router.get("/:id", requireAuth, async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    const { error, value } = schema.validate({ id: id });
-
-    if (error) {
-        return res.status(400).json({
-            message: "Please provide a valid id"
-        });
-    }
-
-    const image = await Image.findByPk(value.id, { attributes: ["id", "url"] });
-
-    if (!image) {
-        return res.status(404).json({
-            message: "Image not found"
-        });
-    }
-
-    if (image.url) {
-        const fileName = image.url.split("://")[1].split("/")[1];
-        image.url = AWS.getGetSignedUrl(fileName);
-    } else {
-        image.url = "No image available";
-    }
-
-    res.json({ image });
 });
 
 // GET a signed url to upload/put a new image into the bucket
