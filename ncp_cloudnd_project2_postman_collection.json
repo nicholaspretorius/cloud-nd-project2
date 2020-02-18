@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "057f5e9f-5aaa-43d2-b9fa-d5d7e7b0cddb",
+		"name": "Cloud ND Project 2",
+		"description": "Collection of API endpoints for the Udacity Cloud Developer Nanodegree: Project 2.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/auth",
+			"item": [
+				{
+					"name": "/auth/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Authorisation and authentication related routes",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/users",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test3@test.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/4924fd06-e7e0-42d5-b5e4-a3430823f4aa",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"4924fd06-e7e0-42d5-b5e4-a3430823f4aa"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "/user endpoints",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/images",
+			"item": [
+				{
+					"name": "/images/filtered",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/images/filtered?image_url=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"images",
+								"filtered"
+							],
+							"query": [
+								{
+									"key": "image_url",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/images/signed-url/:fileName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4N2VlYmNiLTQ5MjktNGUyMy1iZDAzLWJlNzhlOTY0NWU4ZiIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTU4MTkyMzY2NX0.HgwjVjhuxn1cp_RMOf5N5RNQlFySKOBxKnjSIXSTAq8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/images/signed-url/kraiss.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"images",
+								"signed-url",
+								"kraiss.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/images/upload-url/:fileName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4N2VlYmNiLTQ5MjktNGUyMy1iZDAzLWJlNzhlOTY0NWU4ZiIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTU4MTk0MTI5N30.JNj-uKRTsWqGgGYDn_kcucS3gjH2UX4i6wkkcowbOes",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4N2VlYmNiLTQ5MjktNGUyMy1iZDAzLWJlNzhlOTY0NWU4ZiIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTU4MTk0MTU4Nn0.WoKHAPA0vSTGOgHXWUvM1ps7MP528S-FjCO1nJrZsLE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/images/upload-url/kraiss.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"images",
+								"upload-url",
+								"kraiss.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AWS S3 Bucket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/Users/nicholas/Downloads/kraiss1.jpg"
+							}
+						},
+						"url": {
+							"raw": "https://ncp-cloud-nd-s3-bucket.s3.amazonaws.com/kraiss.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWAQHPCT2CWZL2PHN%2F20200217%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200217T121359Z&X-Amz-Expires=300&X-Amz-Security-Token=FwoGZXIvYXdzEBUaDJkLGYOB7drOsJTzPCLKAY%2BDDyrVasI7tthdIMQYN4RYoUsfRKphQcUaK%2F8qvFYoU4S91zbYRVtjaPpG17WsUwGVjXuSznjnXEYbxEwvK3NqY2Xk9zbRbsHtNGHK4l1TuHitVd64KXJhlBVKQ1tnxZcUa8tscfOU3XI3EVe7ZyS2GmiLFtVeq8048dKPZYVhQ%2B4pK8Ih57GnRQ1bn07vzK%2F7X7OVgkbcCtcFme7vaRFvna0gVLeOnE5oYqZfJcGp0WmJigwKAhftWh%2B%2BROCvkXlsG3vzikx8mRgovoGq8gUyLfdfsMUJO9NcIi1c8MHnYD%2BpzOjGNa61rAO0Gb5MdSwOYCRpqkTwnjLe6WU%2FPg%3D%3D&X-Amz-Signature=48f2bf61551f9c810b0da295f831e6c20123769eef90420ab211ed2f715aa491&X-Amz-SignedHeaders=host",
+							"protocol": "https",
+							"host": [
+								"ncp-cloud-nd-s3-bucket",
+								"s3",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"kraiss.jpg"
+							],
+							"query": [
+								{
+									"key": "X-Amz-Algorithm",
+									"value": "AWS4-HMAC-SHA256"
+								},
+								{
+									"key": "X-Amz-Credential",
+									"value": "ASIAWAQHPCT2CWZL2PHN%2F20200217%2Fus-east-1%2Fs3%2Faws4_request"
+								},
+								{
+									"key": "X-Amz-Date",
+									"value": "20200217T121359Z"
+								},
+								{
+									"key": "X-Amz-Expires",
+									"value": "300"
+								},
+								{
+									"key": "X-Amz-Security-Token",
+									"value": "FwoGZXIvYXdzEBUaDJkLGYOB7drOsJTzPCLKAY%2BDDyrVasI7tthdIMQYN4RYoUsfRKphQcUaK%2F8qvFYoU4S91zbYRVtjaPpG17WsUwGVjXuSznjnXEYbxEwvK3NqY2Xk9zbRbsHtNGHK4l1TuHitVd64KXJhlBVKQ1tnxZcUa8tscfOU3XI3EVe7ZyS2GmiLFtVeq8048dKPZYVhQ%2B4pK8Ih57GnRQ1bn07vzK%2F7X7OVgkbcCtcFme7vaRFvna0gVLeOnE5oYqZfJcGp0WmJigwKAhftWh%2B%2BROCvkXlsG3vzikx8mRgovoGq8gUyLfdfsMUJO9NcIi1c8MHnYD%2BpzOjGNa61rAO0Gb5MdSwOYCRpqkTwnjLe6WU%2FPg%3D%3D"
+								},
+								{
+									"key": "X-Amz-Signature",
+									"value": "48f2bf61551f9c810b0da295f831e6c20123769eef90420ab211ed2f715aa491"
+								},
+								{
+									"key": "X-Amz-SignedHeaders",
+									"value": "host"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All /images endpoints",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c9b47807-72cd-492c-bb78-16545a0be44b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "379da533-d60b-4be6-b091-35bb0b3bf49e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "108c6361-ae66-4888-a78b-165b3b352b69",
+			"key": "host",
+			"value": "http://localhost:8082",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
