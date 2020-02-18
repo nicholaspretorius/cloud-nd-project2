@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 
 import { User } from "./../users/models/User";
 
-import * as bcrypt from "bcrypt";
+import { genSalt, hash, compare } from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import * as EmailValidator from "email-validator";
 
@@ -12,13 +12,13 @@ const router: Router = Router();
 
 async function generatePasswordHash(password: string): Promise<string> {
     const rounds = 10;
-    const salt = await bcrypt.genSalt(rounds);
-    const hash = await bcrypt.hash(password, salt);
-    return hash;
+    const salt = await genSalt(rounds);
+    const hashed = await hash(password, salt);
+    return hashed;
 }
 
 async function comparePasswords(password: string, hash: string): Promise<boolean> {
-    return await bcrypt.compare(password, hash);
+    return await compare(password, hash);
 }
 
 export function generateJWT(user: User): string {
