@@ -31,15 +31,45 @@ Successfully deployed instance:
 
 ![Elastic Beanstalk Running Instance](/deployment_screenshots/elastic-beanstalk-screenshot.png)
 
+Note: The command within the "Node command" field on AWS Elastic Beanstalk is: `node server.js`
 
 ### AWS Urls
 
-* Root: 200 [/](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/)
-* Incorrect: 400 [/filteredimage?image_url](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url)
-* Unprocessable: 422 [/filteredimage?image_url=blah](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=blah)
-* Correct: 200 [/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg](http://udacity-cloud-nd-project-2-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg) 
+* Root: 200 [/](http://project2-dev2.us-east-1.elasticbeanstalk.com/)
+* Incorrect: 400 [/images/filtered?image_url](http://project2-dev2.us-east-1.elasticbeanstalk.com/images/filtered?image_url)
+* Unprocessable: 422 [/images/filtered?image_url=blah](http://project2-dev2.us-east-1.elasticbeanstalk.com/images/filtered?image_url=blah)
+* Correct: 200 [/images/filtered?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg](http://project2-dev2.us-east-1.elasticbeanstalk.com/images/filtered?image_url=https://cdn.pixabay.com/photo/2020/01/22/10/18/landscape-4784949_1280.jpg) 
 
 
+### AWS Educate Profile
+
+You need to have an AWS credentials file setup with the appropriate details from the AWS Educate profile. You can find these by clicking on the link for "Account Details" in the Vocareum interface and then selecting AWS CLI "Show" link. Copy and paste those details into the the credentials file as indicated below: 
+
+```
+[aws_educate]
+aws_access_key_id=keygoeshere
+aws_secret_access_key=tokengoeshere
+aws_session_token=tokengoeshere
+```
+
+### Elastic Beanstalk (EB )Commands
+
+In order to create the EB environment, you need to run the following commands:
+
+* `eb init --profile aws_educate` Initialises the EB environment (will create a .elasticbeanstalk folder with a config.yml file within it)
+* `eb list --all` Lists all eb environments if any
+* `npm run build` Build the artifact for deployment.
+* `eb create --profile aws_educate`
+* `eb deploy --profile aws_educate`
+* `eb terminate --all` to terminate Elastic Beanstalk environments
+* `eb abort` to cancel an active eb operation
+
+Please note: In the .elasticbeanstalk/config.yml, you need to add the following property on the root level, after "branch-defaults": 
+
+```
+deploy:
+  artifact: ./www/Archive.zip
+```
 
 ## Original README Instructions
 
