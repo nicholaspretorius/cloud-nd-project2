@@ -48,7 +48,7 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jimp": "^0.6.4",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.18.1",
